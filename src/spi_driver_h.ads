@@ -1,5 +1,7 @@
 pragma Ada_2012;
+
 pragma Style_Checks (Off);
+pragma Warnings (Off, "-gnatwu");
 
 with Interfaces.C; use Interfaces.C;
 
@@ -9,17 +11,18 @@ package spi_driver_h is
   -- Copied from an example on the RPi forum.
   -- Author    : David Haley
   -- Created   : 29/04/2022
-  -- Last Edit : 29/04/2022
+  -- Last Edit : 11/10/2025
+  -- 20251011: Check on wordlength added
+  -- 20220490: Comments corrected
    function SPI_Open
      (SPI_Device : unsigned_char;
       Mode : unsigned_char;
-      Speed : unsigned_long) return int  -- spi_driver.h:8
+      Speed : unsigned_long) return int  -- spi_driver.h:9
    with Import => True, 
         Convention => C, 
         External_Name => "SPI_Open";
 
   -- SPI_Device 0 .. 1
-  -- Word_Length typically 8
   -- Mode 0 .. 3
   -- Speed 3125 .. 125000000
   -- Must be called before any transfers, returns 0 if successful.
@@ -30,6 +33,7 @@ package spi_driver_h is
   -- -3: Unknown SPI mode requested
   -- -4: Error setting Mode
   -- -5: Bad speed requested
+  -- -6: Word length not set correctly
    function SPI_Transfer
      (Tx_Buffer : access unsigned_char;
       Rx_Buffer : access unsigned_char;
@@ -54,5 +58,8 @@ package spi_driver_h is
   -- Close  the SPI device should be called before program termination.
   -- Return values:
   -- 0: Success;
-  -- Non zero values are the rttor code returned from call to close
+  -- Non zero values are the error code returned from call to close
 end spi_driver_h;
+
+pragma Style_Checks (On);
+pragma Warnings (On, "-gnatwu");

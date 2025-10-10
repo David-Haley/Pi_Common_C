@@ -2,7 +2,8 @@
 // Copied from an example on the RPi forum.
 // Author    : David Haley
 // Created   : 29/04/2022
-// Last Edit : 30/04/2022
+// Last Edit : 11/10/2025
+// 20251011: Check on word length added
 // 20220490: Comments corrected
 
 int SPI_Open (unsigned char SPI_Device, unsigned char Mode,
@@ -18,7 +19,7 @@ int SPI_Open (unsigned char SPI_Device, unsigned char Mode,
 // -3: Unknown SPI mode requested
 // -4: Error setting Mode
 // -5: Bad speed requested
-//
+// -6: Word length not set correctly
 
 int SPI_Transfer (unsigned char *Tx_Buffer, unsigned char *Rx_Buffer,
    unsigned short Length);
