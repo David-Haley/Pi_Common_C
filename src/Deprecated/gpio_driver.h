@@ -2,17 +2,15 @@
 // driver uses libgpiod.
 // Author    : David Haley
 // Created   : 22/07/2025
-// Last Edit : 17/02/2025
-
-// 20260217 : Ported to libgpiod version 2
+// Last Edit : 31/07/2025
 
 int Open_GPIO_Chip (const char *Chip_Name);
 // Must be called before any other GPIO functions are used.
-// Returns 0 if no error, otherwise returns -1.
+// Returns 0 if no error, otherwise the errno set by the library call.
 
 void Close_GPIO_Line (int Line_Number);
 // Close one line only. Can be used to close a line whilst retaining
-// others in use.
+// others in use. Close_GPIO_Chip closes all lines currently in use.
 
 void Close_GPIO_Chip (void);
 // Should be called when the use of GPIO is no longer required. Closes
@@ -32,13 +30,13 @@ int Pulse_High (int Line_Number);
 // Sets a previously low output high for the minimum time possible,
 // time will depend on Pi speed and overhead. if output was initially
 // high it will be set low, this is not treated as an error.
-// Returns -1 if a failure occurs.
+// Returns error number if a failure occurs.
 
 int Pulse_Low (int Line_Number);
 // Sets a previously high output low for the minimum time possible,
 // time will depend on Pi speed and overhead. if output was initially
 // low it will be set high, this is not treated as an error.
-// Returns -1 if a failure occurs.
+// Returns error number if a failure occurs.
 
 int Open_Input (const char *Line_Name);
 // Opens the named line as an input and returns the line number or -1
