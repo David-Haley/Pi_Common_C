@@ -27,6 +27,13 @@ int Open_Output (const char *Line_Name)
     return 0; // fake line number 0 (not -1, so Ada Bind_Pin does not raise)
 }
 
+int Open_Output_Initial (const char *Line_Name, int Initial_High)
+{
+    (void)Line_Name;
+    (void)Initial_High;
+    return 0; // fake line number
+}
+
 int Set_High (int Line_Number)
 {
     (void)Line_Number;
